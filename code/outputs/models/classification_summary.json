@@ -1,0 +1,127 @@
+{
+  "rows": 41176,
+  "features_used": 19,
+  "train": 32940,
+  "test": 8236,
+  "positive_rate": 11.266271614532737,
+  "best_model": "XGBoost (weighted)",
+  "threshold": 0.6510943174362183,
+  "best_default": {
+    "CV ROC-AUC": 0.8008304351546803,
+    "CV ROC-AUC std": 0.007138158139061093,
+    "CV F1": 0.46731756145482894,
+    "Accuracy": 0.8448275862068966,
+    "Precision": 0.3881074168797954,
+    "Recall": 0.6540948275862069,
+    "F1": 0.4871589085072231,
+    "ROC-AUC": 0.8116687339571184,
+    "PR-AUC": 0.48380309378398356,
+    "Fit time (s)": 0.9601359367370605
+  },
+  "best_tuned": {
+    "CV ROC-AUC": 0.8008304351546803,
+    "CV ROC-AUC std": 0.007138158139061093,
+    "CV F1": 0.4990356798452142,
+    "Accuracy": 0.8813744536182613,
+    "Precision": 0.4787510841283608,
+    "Recall": 0.5948275862068966,
+    "F1": 0.5305141758769822,
+    "ROC-AUC": 0.8116687339571184,
+    "PR-AUC": 0.48380309378398356,
+    "Fit time (s)": NaN
+  },
+  "baseline": {
+    "CV ROC-AUC": 0.5,
+    "CV ROC-AUC std": 0.0,
+    "CV F1": 0.0,
+    "Accuracy": 0.8873239436619719,
+    "Precision": 0.0,
+    "Recall": 0.0,
+    "F1": 0.0,
+    "ROC-AUC": 0.5,
+    "PR-AUC": 0.11267605633802817,
+    "Fit time (s)": 0.13920307159423828
+  },
+  "logreg_plain": {
+    "CV ROC-AUC": 0.7897614339077195,
+    "CV ROC-AUC std": 0.0071746831907682895,
+    "CV F1": 0.3402521455979583,
+    "Accuracy": 0.8984944147644488,
+    "Precision": 0.652317880794702,
+    "Recall": 0.2122844827586207,
+    "F1": 0.3203252032520325,
+    "ROC-AUC": 0.8006072555112016,
+    "PR-AUC": 0.4534442409796275,
+    "Fit time (s)": 0.278400182723999
+  },
+  "top20_capture_pct": 66.70258620689656,
+  "lift_top20": 3.3355343047965995,
+  "importance_top": {
+    "nr.employed": 0.023760569427929736,
+    "emp.var.rate": 0.018056668825377986,
+    "contact": 0.017043497442575974,
+    "euribor3m": 0.014079973175358196,
+    "campaign": 0.0069933693354472855,
+    "month": 0.005942280424853297
+  },
+  "corr_duration_target": 0.40529726126852617,
+  "poutcome_success_rate": 65.1128914785142,
+  "month_rates": {
+    "apr": 20.5,
+    "aug": 10.6,
+    "dec": 48.9,
+    "jul": 9.0,
+    "jun": 10.5,
+    "mar": 50.5,
+    "may": 6.4,
+    "nov": 10.1,
+    "oct": 43.9,
+    "sep": 44.9
+  },
+  "month_counts": {
+    "may": 13767,
+    "jul": 7169,
+    "aug": 6176,
+    "jun": 5318,
+    "nov": 4100,
+    "apr": 2631,
+    "oct": 717,
+    "sep": 570,
+    "mar": 546,
+    "dec": 182
+  },
+  "job_rates": {
+    "admin.": 13.0,
+    "blue-collar": 6.9,
+    "entrepreneur": 8.5,
+    "housemaid": 10.0,
+    "management": 11.2,
+    "retired": 25.3,
+    "self-employed": 10.5,
+    "services": 8.1,
+    "student": 31.4,
+    "technician": 10.8,
+    "unemployed": 14.2,
+    "unknown": 11.2
+  },
+  "cm_tuned": [
+    [
+      6707,
+      601
+    ],
+    [
+      376,
+      552
+    ]
+  ],
+  "cm_default": [
+    [
+      6351,
+      957
+    ],
+    [
+      321,
+      607
+    ]
+  ]
+}

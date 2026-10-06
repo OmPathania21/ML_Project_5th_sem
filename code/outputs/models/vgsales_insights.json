@@ -1,0 +1,57 @@
+{
+  "rows_raw": 16598,
+  "rows_clean": 16323,
+  "year_min": 1980,
+  "year_max": 2016,
+  "median_sales": 0.17,
+  "max_game": "Wii Sports",
+  "max_sales": 82.74,
+  "skew": 17.319068540328328,
+  "top1pct_share": 21.138274062870604,
+  "peak_year": 2008,
+  "peak_sales": 678.9,
+  "peak_games_year": 2009,
+  "top_genre": "Action",
+  "top_genre_sales": 1722.87,
+  "top_avg_genre": "Platform",
+  "top_avg_value": 0.9465182648401826,
+  "region_share": {
+    "NA_Sales": 49.1,
+    "EU_Sales": 27.3,
+    "JP_Sales": 14.6,
+    "Other_Sales": 8.9
+  },
+  "jp_top_genre": "Role-Playing",
+  "jp_rpg_share": 37.91774474672786,
+  "na_shooter_share": 56.07542239858048,
+  "top_platform": "PS2",
+  "top_platform_sales": 1233.46,
+  "top_publisher": "Nintendo",
+  "top_publisher_sales": 1784.43,
+  "n_publishers": 576,
+  "top5_pub_share": 53.058383087566696,
+  "corr_na_global": 0.9412673002868199,
+  "corr_jp_global": 0.6127892888145389,
+  "region_top_genres": {
+    "North America": [
+      "Action",
+      "Sports",
+      "Shooter"
+    ],
+    "Europe": [
+      "Action",
+      "Sports",
+      "Shooter"
+    ],
+    "Japan": [
+      "Role-Playing",
+      "Action",
+      "Sports"
+    ],
+    "Other": [
+      "Action",
+      "Sports",
+      "Shooter"
+    ]
+  }
+}
