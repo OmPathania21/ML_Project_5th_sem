@@ -1,0 +1,19 @@
+\phantomsection
+\addcontentsline{toc}{chapter}{ABSTRACT}
+\begin{center}{\bfseries\fontsize{16}{20}\selectfont ABSTRACT}\end{center}
+\vspace{6pt}
+This project designs, implements and evaluates machine-learning pipelines across all five units of the course, turning
+raw data into reliable and interpretable decisions. Its objectives are to understand data through exploratory analysis,
+to build and compare supervised models, to discover structure without labels, to model sequential behaviour, and to
+investigate the effectiveness of ensemble classifiers. In PBL 1, the Google Play Store and Video Game Sales datasets
+were cleaned and explored, and the Combined Cycle Power Plant and Bank Marketing datasets were used for regression and
+classification, where tuned XGBoost reached an RMSE of 3.17 MW (R² 0.966) and an imbalance-aware XGBoost classifier
+reached an F1-score of 0.531 with a 3.3-fold lift. In PBL 2, the UCI Human Activity Recognition dataset was used:
+K-Means and Gaussian Mixture clustering recovered activity structure with up to 61.2 percent accuracy without labels,
+and Hidden Markov Models with hand-implemented forward–backward and Viterbi algorithms decoded the activity sequences
+of unseen people with 98.7 percent accuracy. In PBL 3, ten ensemble classifiers, spanning bagging, boosting, voting and
+stacking, were compared with Logistic Regression and Decision Tree baselines on \dbRowsClean{} patient records for
+diabetes prediction. The best model, \dbBestName{} with an optimised decision threshold, achieved an F1-score of
+\dbBestFone{} and a ROC-AUC of \dbBestAuc{} on unseen patients, significantly better than Logistic Regression (F1
+\dbLrFone). Across the project, careful leakage control, metrics suited to the class balance and the combination of
+multiple learners consistently produced the most accurate and trustworthy models.

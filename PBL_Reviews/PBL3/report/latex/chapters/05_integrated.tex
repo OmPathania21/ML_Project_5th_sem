@@ -1,0 +1,81 @@
+\chapter{Integrated Discussion and Findings}
+
+This chapter brings together what was learned across PBL I, II and III. Numbers are compared only between models
+evaluated on the same task, the same test set and the same metric. Results from different datasets are compared
+qualitatively.
+
+\section{Summary of Outcomes per Unit}
+\begin{table}[H]
+\centering
+\caption{Best result of each unit on its own held-out test data}
+\label{tab:summary}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\linewidth}{@{}c >{\raggedright\arraybackslash}p{3.3cm} >{\raggedright\arraybackslash}p{3.4cm} >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Unit} & \textbf{Task / dataset} & \textbf{Best method} & \textbf{Key result (vs baseline)} \\
+\midrule
+1 & EDA: Play Store, Video Games & Robust cleaning + rank statistics & Quantified market drivers (e.g.\ reviews–installs $\rho=0.97$; top 1\% of games = 21\% of sales) \\
+2 & Regression: CCPP & Tuned XGBoost & RMSE 3.17 MW, $R^2$ 0.966 (linear: 4.59 MW; $-$31\% error) \\
+2 & Classification: Bank Marketing & Weighted XGBoost + threshold & F1 0.531, ROC-AUC 0.812, 3.3$\times$ lift (plain LR: F1 0.320) \\
+3 & Clustering: UCI HAR & Gaussian Mixture & Accuracy 0.612, ARI 0.486 (K-Means: 0.570) \\
+4 & Sequential: UCI HAR & Hybrid HMM + Viterbi & Accuracy 0.987, macro F1 0.988 (same classifier without HMM: 0.964) \\
+5 & Ensembles: Diabetes & \dbBestName{} + tuned threshold & F1 \dbBestFone, ROC-AUC \dbBestAuc{} (LR: F1 \dbLrFone, ROC-AUC \dbLrAuc) \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Critical Findings Across the Project}
+\begin{enumerate}
+\item \textbf{Combining many learners beats a single model on tabular data, consistently.} Gradient-boosted tree
+ensembles were the best model on every supervised tabular task: CCPP regression (tuned XGBoost), bank-marketing
+classification (weighted XGBoost) and diabetes prediction (Chapter 4, where every one of the ten ensembles beat both
+baselines on F1 and ROC-AUC). The mechanism is the same in each case. Boosting captures non-linear, interacting effects
+that linear models miss, and averaging many trees removes the instability of a single tree.
+
+\item \textbf{The temporal structure adds the same kind of value as an ensemble.} In Unit 4 a strong per-window
+classifier made 3.6\% errors. Adding a Markov chain and decoding with Viterbi removed 63\% of them, because each
+prediction is combined with the evidence from neighbouring windows. Like an ensemble, the HMM pools evidence to correct
+isolated mistakes; here the pooling runs over time rather than over models.
+
+\item \textbf{The right metric matters more than the model when classes are imbalanced.} Three datasets were
+imbalanced: bank 11.3\% positive, diabetes 8.8\%, and the activity classes once sequences are considered. On each, a
+trivial or plain model reached high accuracy while missing most positives (bank: 89.8\% accuracy with only 21\% recall).
+Evaluating with F1, recall, ROC-AUC and PR-AUC, and choosing the decision threshold on out-of-fold training predictions,
+consistently gave more useful models: bank F1 0.487 $\rightarrow$ 0.531, and a similar threshold gain for diabetes
+(Chapter 4).
+
+\item \textbf{Leakage control is essential for honest results.} Each review had its own leakage risk: the
+\texttt{duration} feature in the bank data, duplicate patient records in the diabetes data, and person overlap in HAR.
+Each was removed or controlled (feature dropped, duplicates removed before splitting, split by subject). Preprocessing
+and model selection always ran inside training folds.
+
+\item \textbf{Unsupervised structure is not the same as semantic labels.} K-Means clusters of HAR windows were
+geometrically \emph{tighter} than the true activities (silhouette 0.41 vs 0.26) yet matched them only 57\% of the time.
+Unsupervised methods reveal how data is organised, which is valuable for exploration, but they do not replace labels
+when a specific target matters.
+
+\item \textbf{Interpretation confirms domain knowledge.} Permutation importance and SHAP identified ambient temperature
+as the driver of power output, past campaign success and the macro-economy as drivers of subscription, and HbA1c,
+glucose, age and BMI as drivers of diabetes risk. In each case the model's explanations matched the physics, the
+marketing literature or clinical guidelines, which increases trust in the models.
+\end{enumerate}
+
+\section{Comparability of Results}
+Only models on the same dataset, split and metric are compared numerically: the rows of each table in Chapters 2–4.
+The six summary rows of Table~\ref{tab:summary} come from different datasets with different difficulty and class
+balance. For example, the diabetes F1 (\dbBestFone) and the bank F1 (0.531) should not be read as ``the diabetes model is
+better''. The diabetes data contains much stronger predictors (HbA1c and glucose), while the bank data is limited to
+information available before a call.
+
+\section{Study Limitations}
+\begin{itemize}
+\item \textbf{Different datasets per unit.} The allotted topics used different datasets, so the five units cannot be
+evaluated on one common benchmark.
+\item \textbf{Public, curated data.} All datasets are public snapshots: laboratory HAR recordings, a 2008–2010 bank
+campaign, and a curated diabetes dataset whose laboratory values are recorded at a few discrete levels. Performance on
+raw clinical or field data is likely to be lower.
+\item \textbf{Tuning budget.} Only the leading family in each task was tuned extensively; the other models used
+sensible defaults.
+\item \textbf{No external validation.} Each model was validated on a held-out split of the same source, not on an
+independent cohort or site.
+\end{itemize}

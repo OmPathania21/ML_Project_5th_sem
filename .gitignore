@@ -55,3 +55,16 @@ desktop.ini
 # ── Misc ──────────────────────────────────────────────
 *.log
 node_modules/
+
+# CatBoost training logs
+catboost_info/
+# LaTeX build files
+*.aux
+*.fdb_latexmk
+*.fls
+*.xdv
+*.toc
+*.lof
+*.lot
+*.out
+PBL_Reviews/PBL3/report/latex/main.pdf

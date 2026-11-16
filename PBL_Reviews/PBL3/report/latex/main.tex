@@ -1,0 +1,275 @@
+% =====================================================================
+%  21CSC305P Machine Learning — Integrated Project Report (PBL I, II, III)
+%  Group 10 · compile with:  latexmk -xelatex main.tex
+% =====================================================================
+\documentclass[12pt,a4paper,openany]{report}
+
+% ---------- Page geometry: Left 1.5", Right/Top/Bottom 1" -------------
+\usepackage[a4paper,left=1.5in,right=1in,top=1in,bottom=1in,footskip=0.45in]{geometry}
+
+% ---------- Fonts: Times New Roman body, Consolas code ------------------
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\setmonofont{Consolas}[Path=/Applications/Microsoft Word.app/Contents/Resources/DFonts/,
+  Extension=.ttf, UprightFont=Consola, BoldFont=Consolab, ItalicFont=Consolai, Scale=MatchLowercase]
+\usepackage{unicode-math}
+\setmathfont{texgyretermes-math.otf}
+
+% ---------- Spacing: 1.5 lines, 6 pt after paragraphs, justified ------
+\usepackage{setspace}
+\setstretch{1.5}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+% ---------- Graphics, tables, colours ----------------------------------
+\usepackage{graphicx}
+\graphicspath{{images/}{../../../../code/outputs/figures/}}
+\usepackage{booktabs,tabularx,multirow,array,longtable}
+\usepackage{float}
+\usepackage[table]{xcolor}
+\definecolor{srmblue}{HTML}{1F3A93}
+\definecolor{navy}{HTML}{0F1F3D}
+\definecolor{accent}{HTML}{EB6834}
+\definecolor{chartblue}{HTML}{2A78D6}
+\definecolor{lightblue}{HTML}{EEF4FC}
+\definecolor{lightorange}{HTML}{FDF0EA}
+\definecolor{codebg}{HTML}{F7F7F5}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric,fit,calc,backgrounds}
+\tikzset{every picture/.append style={execute at begin picture={\setstretch{1.0}}}}
+\usepackage{enumitem}
+\setlist{itemsep=2pt,topsep=4pt,parsep=0pt}
+\usepackage{pdflscape}
+
+% ---------- Captions: 11 pt bold; tables above, figures below ----------
+\usepackage[font={small,bf},labelfont=bf,labelsep=period,skip=6pt]{caption}
+\DeclareCaptionFont{eleven}{\fontsize{11}{13}\selectfont}
+\captionsetup{font={eleven,bf}}
+\captionsetup[table]{position=top}
+\captionsetup[figure]{position=bottom}
+\renewcommand{\figurename}{Figure}
+\renewcommand{\tablename}{Table}
+% Table content 11 pt
+\AtBeginEnvironment{tabular}{\fontsize{11}{13.5}\selectfont}
+\AtBeginEnvironment{tabularx}{\fontsize{11}{13.5}\selectfont}
+
+% ---------- Chapter-wise numbering (Figure 2.1, Table 2.1, (2.1)) -----
+\numberwithin{equation}{chapter}
+\numberwithin{figure}{chapter}
+\numberwithin{table}{chapter}
+
+% ---------- Headings ---------------------------------------------------
+% Chapter: 16 pt, bold, uppercase, centred, new page
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+  {\centering\bfseries\fontsize{16}{20}\selectfont}
+  {\MakeUppercase{\chaptertitlename}\ \thechapter}{4pt}{\MakeUppercase}
+\titlespacing*{\chapter}{0pt}{0pt}{18pt}
+% Section: 14 pt bold left;  Subsection: 12 pt bold left
+\titleformat{\section}{\bfseries\fontsize{14}{17}\selectfont}{\thesection}{0.6em}{}
+\titlespacing*{\section}{0pt}{12pt}{6pt}
+\titleformat{\subsection}{\bfseries\fontsize{12}{15}\selectfont}{\thesubsection}{0.6em}{}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{2}
+
+% ---------- Page numbers: bottom centre --------------------------------
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\fancypagestyle{plain}{\fancyhf{}\cfoot{\thepage}\renewcommand{\headrulewidth}{0pt}}
+
+% ---------- TOC / LoF / LoT styling ------------------------------------
+\usepackage{tocloft}
+\renewcommand{\cfttoctitlefont}{\hfill\bfseries\fontsize{16}{20}\selectfont}
+\renewcommand{\cftaftertoctitle}{\hfill}
+\renewcommand{\cftloftitlefont}{\hfill\bfseries\fontsize{16}{20}\selectfont}
+\renewcommand{\cftafterloftitle}{\hfill}
+\renewcommand{\cftlottitlefont}{\hfill\bfseries\fontsize{16}{20}\selectfont}
+\renewcommand{\cftafterlottitle}{\hfill}
+\renewcommand{\contentsname}{TABLE OF CONTENTS}
+\renewcommand{\listfigurename}{LIST OF FIGURES}
+\renewcommand{\listtablename}{LIST OF TABLES}
+\setlength{\cftfignumwidth}{3em}
+\setlength{\cfttabnumwidth}{3em}
+\renewcommand{\cftchapfont}{\bfseries}
+\renewcommand{\cftchappagefont}{\bfseries}
+\renewcommand{\cftchappresnum}{\MakeUppercase{\chaptername}~}
+\setlength{\cftchapnumwidth}{6.2em}
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+
+% ---------- Code listings: Consolas 10 pt, single spacing --------------
+\usepackage{listings}
+\lstdefinestyle{py}{
+  language=Python, basicstyle=\fontsize{10}{12}\ttfamily\linespread{1.0}\selectfont,
+  keywordstyle=\color{srmblue}\bfseries, commentstyle=\color{gray}\itshape, stringstyle=\color{accent!80!black},
+  backgroundcolor=\color{codebg}, frame=single, rulecolor=\color{gray!40}, breaklines=true, breakatwhitespace=false,
+  showstringspaces=false, columns=fullflexible, keepspaces=true, tabsize=4, xleftmargin=2pt, xrightmargin=2pt,
+  numbers=left, numberstyle=\tiny\color{gray}, numbersep=6pt, upquote=true,
+  literate={–}{{--}}1 {—}{{---}}1 {→}{{$\rightarrow$}}1 {≥}{{$\geq$}}1 {≤}{{$\leq$}}1 {×}{{$\times$}}1
+           {≈}{{$\approx$}}1 {±}{{$\pm$}}1 {·}{{$\cdot$}}1 {Δ}{{$\Delta$}}1 {ρ}{{$\rho$}}1 {²}{{$^2$}}1
+           {↑}{{$\uparrow$}}1 {↓}{{$\downarrow$}}1 {−}{{-}}1 {“}{{``}}1 {”}{{''}}1 {’}{{'}}1 {…}{{...}}1
+           {°}{{$^\circ$}}1 {✔}{{\checkmark}}1 {α}{{$\alpha$}}1 {β}{{$\beta$}}1 {π}{{$\pi$}}1 {γ}{{$\gamma$}}1 {δ}{{$\delta$}}1
+}
+\lstset{style=py}
+\lstnewenvironment{pycode}{\setstretch{1.0}\lstset{style=py}}{}
+
+% ---------- Hyperlinks -------------------------------------------------
+\usepackage[hidelinks]{hyperref}
+\usepackage{xurl}
+
+% ---------- Project information (edit here) ----------------------------
+\newcommand{\facultyname}{Dr. Arnab Maity}
+\newcommand{\facultydesignation}{Assistant Professor}   % <-- fill in the faculty member's designation
+\newcommand{\colab}[1]{\url{#1}}
+% Google Colab links for Appendix A (replace the placeholder text with \colab{https://colab.research.google.com/...})
+\newcommand{\colabA}{\colab{https://colab.research.google.com/drive/1SQnChW_I3L6BceOsmLX0XZbHGYyEOYN3?usp=sharing}}
+\newcommand{\colabB}{\colab{https://colab.research.google.com/drive/1KFKk5sZSfurSD-a-VYBM_hgXy0dO8U9i?usp=sharing}}
+\newcommand{\colabC}{\colab{https://colab.research.google.com/drive/17SxsAqb6U_QxWRb-E8XC_hsvR6v8V2pV?usp=sharing}}
+\newcommand{\colabD}{\colab{https://colab.research.google.com/drive/1NQZpNcQT_CjkIkZ7L6PDVofIATBjC8Hx?usp=sharing}}
+\newcommand{\colabE}{\colab{https://colab.research.google.com/drive/16T3Zch8et7MFsgK8yMRbI_TihCrhvGig?usp=sharing}}
+\newcommand{\colabF}{\colab{https://colab.research.google.com/drive/1RSjcOHVGl-hs9WIT-LydSqqYsTJWHgos?usp=sharing}}
+\newcommand{\colabG}{\colab{https://colab.research.google.com/drive/1XwuRjVxdXrVyMt7f7xC4trE-6lDh3qTs?usp=sharing}}
+\input{numbers}   % numeric results generated from code/outputs by build_numbers.py
+\input{interp}    % written interpretations of the Unit 5 results
+
+\begin{document}
+
+% =====================================================================
+%  PAGE 1 — COVER (reproduces the sample report page)
+% =====================================================================
+\newgeometry{left=0.75in,right=0.75in,top=0.85in,bottom=0.4in}
+\thispagestyle{empty}
+\pagenumbering{roman}
+\begin{center}
+\setstretch{1.15}
+{\fontsize{14}{17}\selectfont A PROJECT REPORT}\par
+\vspace{10pt}
+{\fontsize{14}{17}\selectfont\bfseries 21CSC305P – MACHINE LEARNING}\par
+\vspace{5pt}
+{\fontsize{12}{15}\selectfont\bfseries (2021 Regulation)}\par
+\vspace{5pt}
+{\fontsize{14}{17}\selectfont\bfseries III Year/ V Semester}\par
+\vspace{5pt}
+{\fontsize{12}{15}\selectfont\bfseries Academic Year: 2026 -2027}\par
+\vspace{16pt}
+{\fontsize{16}{19}\selectfont\itshape Submitted by}\par
+\vspace{2pt}
+{\fontsize{16}{20}\selectfont
+SANSKRITI RASTOGI [RA2411003012439]\\
+SAHIL RAJ [RA2411003012492]\\
+YASH SANTOSH LOHARE [RA2411003012493]\\
+OM PATHANIA [RA2411003012495]\par}
+\vspace{13pt}
+{\fontsize{16}{19}\selectfont\itshape Under the Guidance of}\par
+\vspace{2pt}
+{\fontsize{16}{19}\selectfont \MakeUppercase{\facultyname}}\par
+{\fontsize{12}{15}\selectfont \facultydesignation\\ Department of Computing Technologies}\par
+\vspace{12pt}
+{\fontsize{16}{19}\selectfont\itshape in partial fulfillment of the requirements for the degree of}\par
+\vspace{12pt}
+{\fontsize{16}{19}\selectfont BACHELOR OF TECHNOLOGY\\ in\\ COMPUTER SCIENCE AND ENGINEERING}\par
+\vspace{13pt}
+\includegraphics[width=2.46in]{srm_logo_full.jpeg}\par
+\vspace{2pt}
+{\fontsize{16}{19.5}\selectfont SCHOOL OF COMPUTING\\
+COLLEGE OF ENGINEERING AND TECHNOLOGY\\
+SRM INSTITUTE OF SCIENCE AND TECHNOLOGY\\
+KATTANKULATHUR- 603 203\par}
+\vspace{5pt}
+{\fontsize{14}{17}\selectfont NOVEMBER 2026}\par
+\end{center}
+\restoregeometry
+
+% =====================================================================
+%  PAGE 2 — BONAFIDE CERTIFICATE (reproduces the sample report page)
+% =====================================================================
+\newpage
+\newgeometry{left=0.75in,right=0.85in,top=0.6in,bottom=0.5in}
+\thispagestyle{empty}
+\noindent\includegraphics[width=1.38in]{srm_logo_small.jpeg}\par
+\vspace{2pt}
+\begin{center}
+\setstretch{1.2}
+{\fontsize{18}{24}\selectfont SRM INSTITUTE OF SCIENCE AND TECHNOLOGY\\ KATTANKULATHUR – 603 203\par}
+\vspace{14pt}
+{\fontsize{16}{20}\selectfont BONAFIDE CERTIFICATE\par}
+\end{center}
+\vspace{36pt}
+\begin{minipage}{\linewidth}
+\setstretch{1.35}
+\leftskip=0.45in \rightskip=0.4in
+\hspace*{0.25in}{\fontsize{14}{20}\selectfont Certified that \textbf{21CSC305P - MACHINE LEARNING} project report is the bonafide work of
+``\textbf{\fontsize{12}{20}\selectfont SANSKRITI RASTOGI [RA2411003012439], SAHIL RAJ [RA2411003012492], YASH SANTOSH LOHARE [RA2411003012493], OM PATHANIA [RA2411003012495]}'' who carried out the task of completing the project within the allotted time.\par}
+\end{minipage}
+\vfill
+{\setstretch{1.3}\fontsize{12}{15}\selectfont
+\noindent\begin{minipage}[t]{0.5\linewidth}
+\textbf{SIGNATURE}\\
+\facultyname\\
+\textbf{Course Faculty}\\
+\facultydesignation\\
+{\fontsize{11}{14}\selectfont Department of Computing Technologies\\
+SRM Institute of Science and Technology\\
+Kattankulathur}
+\end{minipage}%
+\begin{minipage}[t]{0.5\linewidth}
+\textbf{SIGNATURE}\\
+Dr. G. Niranjana\\
+\textbf{Head of the Department}\\
+Professor\\
+{\fontsize{11}{14}\selectfont Department of Computing Technologies\\
+SRM Institute of Science and Technology\\
+Kattankulathur}
+\end{minipage}\par}
+\vspace{1.4in}
+\restoregeometry
+
+% =====================================================================
+%  Preliminary pages
+% =====================================================================
+\newpage
+\setcounter{page}{3}
+\input{chapters/00_abstract}
+
+\newpage
+\phantomsection
+\addcontentsline{toc}{chapter}{TABLE OF CONTENTS}
+\begin{singlespace}
+\tableofcontents
+\end{singlespace}
+
+\newpage
+\phantomsection
+\addcontentsline{toc}{chapter}{LIST OF FIGURES}
+\begin{singlespace}
+\listoffigures
+\end{singlespace}
+
+\newpage
+\phantomsection
+\addcontentsline{toc}{chapter}{LIST OF TABLES}
+\begin{singlespace}
+\listoftables
+\end{singlespace}
+
+\input{chapters/00_abbreviations}
+
+% =====================================================================
+%  Main chapters (Arabic page numbers from Chapter 1)
+% =====================================================================
+\clearpage
+\pagenumbering{arabic}
+\input{chapters/01_introduction}
+\input{chapters/02_units12}
+\input{chapters/03_units34}
+\input{chapters/04_unit5}
+\input{chapters/05_integrated}
+\input{chapters/06_conclusion}
+\input{chapters/07_references}
+\input{chapters/08_appendix}
+
+\end{document}

@@ -1,0 +1,82 @@
+\chapter{Introduction}
+
+\section{Background, Motivation and Scope}
+Machine learning turns large, noisy and often unlabelled data into decisions. Most real problems call for more than one
+kind of technique. First the data has to be understood and cleaned. Then predictive models are built and compared.
+Hidden structure has to be discovered where no labels exist, and time-ordered behaviour has to be modelled. Finally,
+reliable high-performing models are built by combining many learners. This project applies the complete toolkit of the
+21CSC305P Machine Learning course across three Project-Based Learning (PBL) reviews and five units. Each unit works on a
+dataset chosen for the problem it addresses.
+
+The application domains are deliberately varied:
+\begin{itemize}
+\item \textbf{The digital economy (PBL I):} mobile-app and video-game markets, and the direct-marketing campaigns of a bank.
+App developers, publishers and marketing teams need to know what drives engagement, sales and customer response.
+\item \textbf{Energy (PBL I):} accurate electrical-output prediction for a power plant supports grid operators in planning
+dispatch.
+\item \textbf{Ubiquitous health sensing (PBL II):} recognising a person's physical activity from a smartphone accelerometer
+is the basis of fitness tracking, elderly-care monitoring and rehabilitation.
+\item \textbf{Clinical decision support (PBL III):} early identification of patients at risk of diabetes from routine
+health records lets clinicians intervene before complications develop. Diabetes affects hundreds of millions of people
+worldwide \cite{ada,miotto}.
+\end{itemize}
+The main stakeholders are product and marketing teams, energy operators, health-technology developers, clinicians and
+patients. The scope covers data acquisition, cleaning, exploratory analysis, model implementation, rigorous evaluation on
+held-out data and interpretation of the results. Deployment is outside the scope and is discussed as future work.
+
+\section{Integrated Problem Statement}
+The overall problem is to \emph{design, implement and evaluate machine-learning pipelines that turn raw data into reliable,
+interpretable decisions}, and to show how the choice of technique depends on the structure of the data. The problem is
+broken into five linked sub-problems, one per unit:
+\begin{enumerate}
+\item \textbf{Unit 1 (Exploratory analysis):} what drives success in the mobile-app and video-game markets?
+\item \textbf{Unit 2 (Supervised learning):} predict a continuous quantity (power-plant energy output) and a binary
+business outcome (whether a bank client subscribes to a term deposit).
+\item \textbf{Unit 3 (Unsupervised learning):} discover groups of similar sensor windows that correspond to physical
+activities, without using labels.
+\item \textbf{Unit 4 (Sequential modelling):} infer the hidden sequence of a person's activities from accelerometer time
+series using Markov models, Hidden Markov Models, forward–backward and Viterbi.
+\item \textbf{Unit 5 (Ensemble learning):} build an intelligent diabetes prediction model from patient health records and
+investigate how effective different ensemble classifiers are compared with single-model baselines.
+\end{enumerate}
+
+\section{Project Objectives}
+\begin{itemize}
+\item \textbf{Objective 1 (Unit 1, EDA):} clean and explore two real datasets (10,841 Play Store apps and 16,598 video
+games) and extract quantified, actionable insights.
+\item \textbf{Objective 2 (Unit 2, regression and classification):} compare at least ten regressors and ten classifiers
+with cross-validation. Expected result: a tuned model clearly better than the linear baseline, and an imbalance-aware
+classifier that avoids the accuracy trap.
+\item \textbf{Objective 3 (Unit 3, clustering):} apply K-Means and Gaussian Mixture clustering, with PCA for
+visualisation, to accelerometer features, and measure how well the clusters recover the true activities.
+\item \textbf{Objective 4 (Unit 4, sequential modelling):} implement forward–backward and Viterbi from first principles,
+verify them against a library, and decode activity sequences of unseen people with unsupervised and supervised HMMs.
+\item \textbf{Objective 5 (Unit 5, ensemble learning):} implement at least three ensemble algorithms (ten are
+implemented) and compare them with Logistic Regression and Decision Tree baselines using F1-score and ROC-AUC. Expected
+result: an ensemble model with high F1 and ROC-AUC on unseen patients.
+\end{itemize}
+
+\section{Unit-wise Topic and Dataset Allocation}
+Table~\ref{tab:allocation} lists the topic and dataset of every unit. The datasets were allotted per review, so each
+chapter documents its own dataset, preprocessing and EDA.
+
+\begin{table}[H]
+\centering
+\caption{Unit-wise topic and dataset allocation}
+\label{tab:allocation}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l c >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{PBL} & \textbf{Unit} & \textbf{Allotted topic / algorithms} & \textbf{Dataset} \\
+\midrule
+PBL 1 & 1 & Exploratory Data Analysis & Google Play Store Apps; Video Game Sales (Kaggle) \\
+PBL 1 & 2 & Regression and classification & Combined Cycle Power Plant; Bank Marketing (UCI) \\
+PBL 2 & 3 & Clustering: K-Means, Gaussian Mixture, PCA & UCI HAR (window features) \\
+PBL 2 & 4 & Markov models, HMM, forward–backward, Viterbi & UCI HAR (accelerometer time series) \\
+PBL 3 & 5 & Ensemble learning: bagging, boosting, voting, stacking & Diabetes Prediction Dataset (Kaggle) \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The rest of the report is organised as follows. Chapter 2 covers Units 1 and 2, Chapter 3 Units 3 and 4, and Chapter 4
+Unit 5. Chapter 5 brings the findings together, and Chapter 6 concludes. Appendix A contains the complete code.

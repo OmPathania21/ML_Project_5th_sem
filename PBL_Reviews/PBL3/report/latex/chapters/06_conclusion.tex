@@ -1,0 +1,42 @@
+\chapter{Overall Conclusion and Future Scope}
+
+\section{Conclusion}
+This project designed, implemented and rigorously evaluated machine-learning pipelines across all five units of the
+course. Every result was measured on held-out data.
+\begin{itemize}
+\item \textbf{Unit 1:} cleaning and exploratory analysis turned two messy market datasets into quantified insights.
+Free apps dominate installs (92.2\% of apps; median 100,000 vs 1,000 installs for paid apps). Video-game sales are
+concentrated in hits (the top 1\% of titles earn 21.1\% of sales) and peaked in 2008.
+\item \textbf{Unit 2:} tuned XGBoost predicted power-plant output with RMSE 3.17 MW ($R^2$ 0.966), 31\% lower error than
+linear regression. An imbalance-aware, leakage-free XGBoost model identified bank-deposit subscribers with F1 0.531 and
+a 3.3$\times$ lift over random calling.
+\item \textbf{Unit 3:} K-Means and Gaussian Mixture clustering recovered the static/dynamic structure of smartphone
+activity data (accuracy up to 0.612 without labels), and showed that geometric clusters differ from semantic activities.
+\item \textbf{Unit 4:} the forward–backward and Viterbi algorithms were implemented from first principles and verified
+against \texttt{hmmlearn} (difference $<10^{-9}$). A supervised hybrid HMM decoded the activity sequences of unseen
+people with 98.7\% accuracy; its Markov chain removed 63\% of the per-window errors.
+\item \textbf{Unit 5:} ten ensemble classifiers were implemented and compared with Logistic Regression and Decision Tree
+baselines for diabetes prediction. The best model, \dbBestName{} with an out-of-fold-tuned threshold, reached
+\textbf{F1 \dbBestFone{} and ROC-AUC \dbBestAuc{}} (accuracy \dbBestAccPct) on \dbTest{} unseen patients, against F1
+\dbLrFone{} for Logistic Regression and \dbDtFone{} for the Decision Tree. The improvement is statistically significant,
+and SHAP explanations agree with clinical guidelines.
+\end{itemize}
+The central lesson is that good machine learning depends as much on \emph{methodology} as on algorithms. The methodology
+used throughout was: careful cleaning, leakage control, metrics matched to the class balance, cross-validated model
+selection, thresholds chosen on training data, and interpretation. Within that methodology, combining learners, whether
+over models (ensembles) or over time (HMMs), consistently gave the most accurate and reliable predictions.
+
+\section{Future Scope}
+\begin{enumerate}
+\item \textbf{External and prospective validation:} test the diabetes model on an independent hospital cohort with raw,
+continuous laboratory values, and the HAR model on free-living data with different phone positions.
+\item \textbf{Cost-sensitive decisions:} replace F1-optimal thresholds with thresholds derived from real costs (e.g.\ the
+cost of a missed diabetic vs an unnecessary test, or of a call vs a deposit).
+\item \textbf{Broader tuning:} Bayesian optimisation (e.g.\ Optuna) for all leading models, and weighted or
+learned-weight voting ensembles.
+\item \textbf{Richer sequential models:} semi-supervised HMMs that need only a few labels, hidden semi-Markov models with
+explicit activity durations, and neural sequence models for comparison.
+\item \textbf{Deployment and interpretability:} package the diabetes model as a web-based risk calculator that shows
+per-patient SHAP explanations to clinicians, with monitoring for data drift.
+\item \textbf{Fairness:} audit model performance across gender and age groups before any clinical use.
+\end{enumerate}
